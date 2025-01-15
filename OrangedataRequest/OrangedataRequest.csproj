@@ -1,22 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.3</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <ApplicationIcon />
-    <OutputType>Library</OutputType>
     <RootNamespace>OrangedataRequest</RootNamespace>
     <AssemblyName>OrangedataRequest</AssemblyName>
     <PackageId>OrangeData.Api</PackageId>
-    <Copyright>Copyright OrangeData 2017</Copyright>
-    <RepositoryUrl>https://github.com/orangedata-official/CSSharp-OrangeData-official</RepositoryUrl>
+    <Copyright>Copyright OrangeData 2025</Copyright>
+    <RepositoryUrl></RepositoryUrl>
     <Company>OrangeData</Company>
     <Description>C# API для сервиса онлайн-касс Orange data</Description>
-    <PackageIconUrl>http://orangedata.ru/favicon.ico</PackageIconUrl>
+    <PackageIconUrl></PackageIconUrl>
     <Authors>OrangeData</Authors>
+    <LangVersion>13</LangVersion>
+    <Version>2.0.0</Version>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
 </Project>

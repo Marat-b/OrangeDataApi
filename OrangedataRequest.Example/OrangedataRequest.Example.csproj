@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <ApplicationIcon />
     <OutputType>Exe</OutputType>
     <RootNamespace>TestLauncher</RootNamespace>
     <AssemblyName>TestLauncher</AssemblyName>
-    <LangVersion>latest</LangVersion>
+    <LangVersion>13</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
