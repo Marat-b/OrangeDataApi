@@ -28,6 +28,22 @@
         /// <summary>
         ///     НДС не облагается
         /// </summary>
-        NONE
+        NONE,
+        /// <summary>
+        ///  ставка НДС 5%
+        /// </summary>
+        VAT5,
+        /// <summary>
+        /// ставка НДС 7%
+        /// </summary>
+        VAT7,
+        /// <summary>
+        /// ставка НДС расч. 5/105
+        /// </summary>
+        VAT105,
+        /// <summary>
+        /// ставка НДС расч. 7/107
+        /// </summary>
+        VAT107
     }
 }

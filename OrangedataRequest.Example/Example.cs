@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using OrangedataRequest;
 using OrangedataRequest.DataService;
 using OrangedataRequest.Models;
@@ -16,19 +17,24 @@ namespace TestLauncher
             var prKeyPath = "C:\\softz\\Projects\\OrangeData\\private_key_test.xml";
             var certPath = "C:\\softz\\Projects\\OrangeData\\client.pfx";
             var certPass = "1234";
+            string documentId = "66549876219";
 
             var dummyOrangeRequest = new OrangeRequest(prKeyPath, certPath, certPass);
 
             var dummyCreateCheckRequest = new ReqCreateCheck
             {
-                // Id = "66549876216",
+                Id = documentId,
                 // INN = "5001104058",
-                Id = "66549876217",
+                // Id = "66549876217",
                 INN = "7727401209",
+                Key = "7727401209",
+                // Group = "vend",
                 Content = new Content
                 {
                     Type = DocTypeEnum.In,
-                    AgentType = AgentTypeEnum.PayingAgent,
+                    // AgentType = AgentTypeEnum.PayingAgent,
+                    AgentType = null,
+                    TotalSum = 123.45m,
                     CheckClose = new CheckClose
                     {
                         Payments = new[]
@@ -51,8 +57,9 @@ namespace TestLauncher
                             Tax = VATRateEnum.NONE,
                             Text = "Булка",
                             PaymentMethodType = PaymentMethodTypeEnum.Full,
-                            PaymentSubjectType = PaymentSubjectTypeEnum.Product
-                        },
+                            PaymentSubjectType = PaymentSubjectTypeEnum.Product,
+                            TaxSum = 0m
+                        }
                         // new Position
                         // {
                         //     Price = 4.45m,
@@ -81,16 +88,17 @@ namespace TestLauncher
                     CauseDocumentNumber = "21"
                 }
             };
+            Console.WriteLine(JsonConvert.SerializeObject(dummyCreateCheckRequest));
             var res1 = await dummyOrangeRequest.CreateCheckAsync(dummyCreateCheckRequest);
             // var res2 = await dummyOrangeRequest.GetCheckStateAsync("5001104058", "12345678990");
-            var res2 = await dummyOrangeRequest.GetCheckStateAsync("7727401209", "66549876217");
-            var res3 = await dummyOrangeRequest.CreateCorrectionCheckAsync(dummyCreateCorrectionCheckRequest);
-            var res4 = await dummyOrangeRequest.GetCorrectionCheckStateAsync("5001104058", "12345678990");
+            var res2 = await dummyOrangeRequest.GetCheckStateAsync("7727401209", documentId);
+            // var res3 = await dummyOrangeRequest.CreateCorrectionCheckAsync(dummyCreateCorrectionCheckRequest);
+            // var res4 = await dummyOrangeRequest.GetCorrectionCheckStateAsync("5001104058", "12345678990");
             Console.WriteLine("Well done!");
             Console.WriteLine($"res1.StatusCode={res1.StatusCode}, res1.Response={res1.Response}");
-            Console.WriteLine($"res2={res2.Response}");
-            Console.WriteLine($"res3={res3.Response}");
-            Console.WriteLine($"res4={res4.Response}");
+            Console.WriteLine($"res2.StatusCode={res2.StatusCode},res2={res2.Response}");
+            // Console.WriteLine($"res3={res3.Response}");
+            // Console.WriteLine($"res4={res4.Response}");
             // Console.ReadKey();
         }
     }

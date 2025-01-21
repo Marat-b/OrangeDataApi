@@ -11,18 +11,18 @@ namespace OrangedataRequest.DataService
 {
     internal sealed class ODDataService
     {
-        public ODDataService(string keyPath, string certPath, string certPassword, string apiUrl = "https://94.228.252.55:2443/api/v2")
+        public ODDataService(string keyText, string certPath, string certPassword, string apiUrl = "https://apip.orangedata.ru:2443/api/v2")
         {
-            _keyPath = keyPath;
+            // _keyPath = keyPath;
+            _keyText = keyText;
             _cert = new X509Certificate2(certPath, certPassword);
             // _cert = X509CertificateLoader.LoadCertificateFromFile(certPath);
             _apiUrl = apiUrl;
         }
 
-        // private string _apiUrl = "https://46.28.89.45:2443/api/v2";
-        private string _apiUrl = "https://94.228.252.55:2443/api/v2";
+        private string _apiUrl = "https://apip.orangedata.ru:2443/api/v2";
 
-        private readonly string _keyPath;
+        private readonly string _keyText;
         private readonly X509Certificate2 _cert;
         private readonly Encoding _encoding = Encoding.UTF8;
 
@@ -118,7 +118,8 @@ namespace OrangedataRequest.DataService
 
             using (var rsa = RSA.Create())
             {
-                rsa.ImportFromXml(File.ReadAllText(_keyPath));
+                // rsa.ImportFromXml(File.ReadAllText(_keyPath));
+                rsa.ImportFromXml(_keyText);
                 return Convert.ToBase64String(rsa.SignData(data, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1));
             }
         }
