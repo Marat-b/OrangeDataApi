@@ -1,50 +1,45 @@
 ﻿using System;
 using System.Net.Http;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using OrangedataRequest.Helpers;
+using Polly;
 
 namespace OrangedataRequest.DataService;
 
 public class OrangeService
 {
-    private readonly HttpClient _httpClient;
-
-    public OrangeService(HttpClient httpClient)
+    public async Task<ODResponse> SendRequestAsync<T>(string uri, X509Certificate2 cert,  HttpMethod method, string requestBody = null, string signature = null)
     {
-        _httpClient = httpClient;
-    }
+        if (string.IsNullOrEmpty(uri))
+        {
+            throw new ArgumentNullException(nameof(uri));
+        }
+        var httpPolicy = Policy.Handle<TimeoutException>().WaitAndRetryAsync(5, retryAttempt => TimeSpan.FromSeconds(5));
 
-    private async Task<ODResponse> SendRequestAsync<T>(string uri, HttpMethod method, string requestBody = null, string signature = null)
-    {
-        // if (string.IsNullOrEmpty(uri))
-        // {
-        //     throw new ArgumentNullException(nameof(uri));
-        // }
-
-        // using (var client = new HttpClient(new HttpClientHandler
-        //        {
-        //            ClientCertificates =
-        //            {
-        //                _cert,
-        //            },
-        //            ServerCertificateCustomValidationCallback = (a, b, c, d) => true
-        //        })) 
-        // {
-        _httpClient.DefaultRequestHeaders.
-            var request = new HttpRequestMessage(method, uri);
-            if (!string.IsNullOrWhiteSpace(signature))
+        var client = new HttpClient(new HttpClientHandler
+        {
+            ClientCertificates =
             {
-                request.Headers.Add("X-Signature", signature);
-            }
-            if (!string.IsNullOrEmpty(requestBody))
-            {
-                request.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-            }
+                cert,
+            },
+            ServerCertificateCustomValidationCallback = (a, b, c, d) => true
+        }); 
+    // {
+        var request = new HttpRequestMessage(method, uri);
+        if (!string.IsNullOrWhiteSpace(signature))
+        {
+            request.Headers.Add("X-Signature", signature);
+        }
+        if (!string.IsNullOrEmpty(requestBody))
+        {
+            request.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
+        }
 
-            var response = await _httpClient.SendAsync(request).ConfigureAwait(false);
-            return await ExtractResponseAsync<T>(response).ConfigureAwait(false);
-        // }
+        using var response = await httpPolicy.ExecuteAsync(async () => await client.SendAsync(request).ConfigureAwait(false)).ConfigureAwait(false);
+        return await ExtractResponseAsync<T>(response).ConfigureAwait(false);
+    // }
     }
     
     private async Task<ODResponse> ExtractResponseAsync<T>(HttpResponseMessage response)
