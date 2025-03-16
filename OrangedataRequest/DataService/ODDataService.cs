@@ -16,8 +16,13 @@ namespace OrangedataRequest.DataService
         {
             // _keyPath = keyPath;
             _keyText = keyText;
-            _cert = new X509Certificate2(certPath, certPassword);
-            // _cert = X509CertificateLoader.LoadCertificateFromFile(certPath);
+            // _cert = new X509Certificate2(certPath, certPassword);
+            // X509KeyStorageFlags flags = X509KeyStorageFlags.Exportable | X509KeyStorageFlags.UserKeySet;
+            // Pkcs12LoaderLimits limits = new Pkcs12LoaderLimits
+            // {
+            //     PreserveStorageProvider = true
+            // };
+            _cert = X509CertificateLoader.LoadPkcs12(File.ReadAllBytes(certPath), certPassword);
             _apiUrl = apiUrl;
             _orangeService = new();
         }
