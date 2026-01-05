@@ -95,5 +95,9 @@ namespace OrangedataRequest.Models
         ///     Применяемая система налогообложения
         /// </summary>
         public TaxationSystemEnum TaxationSystem { get; set; }
+        /// <summary>
+        /// Флаг нужно ли после перехода на НДС 22% формировать чек с НДС 20%, это необходимо для возвратов за 2025 год и в некоторых других случаях
+        /// </summary>
+        public bool UseTax20 { get; set; }
     }
 }
