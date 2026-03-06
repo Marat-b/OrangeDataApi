@@ -24,6 +24,7 @@ namespace OrangedataRequest.Helpers
 
         public static RSA ImportFromXml(this RSA rsa, string node)
         {
+            if (node == null) return null;
             return rsa.ImportFromXml(XElement.Parse(node));
         }
 
