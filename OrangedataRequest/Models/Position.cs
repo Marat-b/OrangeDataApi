@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using Newtonsoft.Json;
 using OrangedataRequest.Enums;
 
@@ -48,6 +49,16 @@ namespace OrangedataRequest.Models
         public string NomenclatureCode { get; set; }
 
         /// <summary>
+        ///     Код маркировки, 2000
+        /// </summary>
+        public string ItemCode { get; set; }
+
+        /// <summary>
+        ///     Планируемый статус, 2003
+        /// </summary>
+        public byte? PlannedStatus { get; set; }
+
+        /// <summary>
         ///     Данные поставщика
         /// </summary>
         public SupplierInfo SupplierInfo { get; set; }
@@ -71,7 +82,7 @@ namespace OrangedataRequest.Models
         ///     Единица измерения предмета расчета
         /// </summary>
         public string UnitOfMeasurement { get; set; }
-        
+
         /// <summary>
         ///     Мера количества предмета расчета, 2108
         /// </summary>
@@ -102,22 +113,25 @@ namespace OrangedataRequest.Models
         /// Сумма НДС за предмет расчета, 1200
         /// </summary>
         public decimal TaxSum { get; set; }
-      /// <summary>
-      /// Фактическая ставка с которой был пробит предмет расчета.
-      /// Ставка НДС, 1199:
-      ///    1 – ставка НДС 20%
-      /// 2 – ставка НДС 10%
-      /// 3 – ставка НДС расч. 20/120
-      /// 4 – ставка НДС расч. 10/110
-      /// 5 – ставка НДС 0%
-      /// 6 – НДС не облагается
-        /// 7 – ставка НДС 5%
-        /// 8 – ставка НДС 7%
-        /// 9 – ставка НДС расч. 5/105
-        /// 10 – ставка НДС расч. 7/107
-        /// 11 – ставка НДС 22%
-        /// 12 – ставка НДС 22/122
+
+        /// <summary>
+        /// Размер НДС за единицу предмета расчета, 1198
         /// </summary>
-        public VATRateEnum TaxRate { get; set; }
+        public decimal UnitTaxSum { get; set; }
+
+        /// <summary>
+        /// Дробное количество маркированного товара, 1291
+        /// </summary>
+        public Dictionary<string, ulong> FractionalQuantity { get; set; }
+
+        /// <summary>
+        /// Отраслевой реквизит чека
+        /// </summary>
+        public Dictionary<string, string> IndustryAttribute { get; set; }
+
+        /// <summary>
+        /// Штрих-коды предмета расчета
+        /// </summary>
+        public Dictionary<string, string> Barcodes { get; set; }
     }
 }
