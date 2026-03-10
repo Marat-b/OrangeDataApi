@@ -71,6 +71,12 @@ namespace OrangedataRequest.Models
         ///     Единица измерения предмета расчета
         /// </summary>
         public string UnitOfMeasurement { get; set; }
+        
+        /// <summary>
+        ///     Мера количества предмета расчета, 2108
+        /// </summary>
+        [DefaultValue(0)]
+        public byte QuantityMeasurementUnit { get; set; }
 
         /// <summary>
         ///     Дополнительный реквизит предмета расчета
