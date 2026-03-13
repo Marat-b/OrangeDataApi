@@ -80,6 +80,54 @@
         /// <summary>
         ///     Залог
         /// </summary>
-        Pledge
+        Pledge,
+        /// <summary>
+        /// Расход
+        /// </summary>
+        Consumption,
+        /// <summary>
+        /// Взносы на обязательное пенсионное страхование ИП
+        /// </summary>
+        ContributionsPensionForIndividualEntrepreneurs,
+        /// <summary>
+        /// Взносы на обязательное пенсионное страхование
+        /// </summary>
+        ContributionsPension,
+        /// <summary>
+        /// Взносы на обязательное медицинское страхование ИП
+        /// </summary>
+        ContributionsHealthForIndividualEntrepreneurs,
+        /// <summary>
+        /// Взносы на обязательное медицинское страхование
+        /// </summary>
+        ContributionsHealth,
+        /// <summary>
+        /// Взносы на обязательное социальное страхование
+        /// </summary>
+        ContributionsSocial,
+        /// <summary>
+        /// Платеж казино
+        /// </summary>
+        CasinoPayment,
+        /// <summary>
+        /// Выдача денежных средств
+        /// </summary>
+        IssuanceOfFunds,
+        /// <summary>
+        /// АТНМ (не имеющем кода маркировки)
+        /// </summary>
+        ATNM = 30,
+        /// <summary>
+        /// АТМ (имеющем код маркировки)
+        /// </summary>
+        ATM,
+        /// <summary>
+        /// ТНМ
+        /// </summary>
+        TNM,
+        /// <summary>
+        /// ТМ
+        /// </summary>
+        TM
     }
 }

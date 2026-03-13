@@ -111,6 +111,11 @@ namespace OrangedataRequest.Models
         /// </summary>
         public string CustomerINN { get; set; }
         
+        ///<summary>
+        ///     Информация о покупателе (клиенте)
+        ///</summary>
+        public Dictionary<string, string> CustomerInfo { get; set; }
+        
         /// <summary>
         /// Кассир, 1021
         /// </summary>
@@ -186,6 +191,16 @@ namespace OrangedataRequest.Models
         /// 2 – ФФД 1.05, значение по умолчанию
         /// 4 – ФФД 1.2
         /// </summary>
-        public int FfdVersion { get; set; } = 2;
+        public FfdVersionEnum? FfdVersion { get; set; }
+        
+        /// <summary>
+        /// Операционный реквизит чека
+        /// </summary>
+        public OperationalAttribute OperationalAttribute { get; set; }
+
+        /// <summary>
+        /// Отраслевой реквизит чека
+        /// </summary>
+        public Dictionary<string,string> IndustryAttribute { get; set; }
     }
 }

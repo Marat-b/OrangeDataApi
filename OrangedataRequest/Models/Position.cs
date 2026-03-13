@@ -86,6 +86,7 @@ namespace OrangedataRequest.Models
         /// <summary>
         ///     Мера количества предмета расчета, 2108
         /// </summary>
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         [DefaultValue(0)]
         public byte QuantityMeasurementUnit { get; set; }
 
@@ -113,6 +114,24 @@ namespace OrangedataRequest.Models
         /// Сумма НДС за предмет расчета, 1200
         /// </summary>
         public decimal TaxSum { get; set; }
+        
+        /// <summary>
+        /// Фактическая ставка с которой был пробит предмет расчета.
+        /// Ставка НДС, 1199:
+        ///    1 – ставка НДС 20%
+        /// 2 – ставка НДС 10%
+        /// 3 – ставка НДС расч. 20/120
+        /// 4 – ставка НДС расч. 10/110
+        /// 5 – ставка НДС 0%
+        /// 6 – НДС не облагается
+        /// 7 – ставка НДС 5%
+        /// 8 – ставка НДС 7%
+        /// 9 – ставка НДС расч. 5/105
+        /// 10 – ставка НДС расч. 7/107
+        /// 11 – ставка НДС 22%
+        /// 12 – ставка НДС 22/122
+        /// </summary>
+        public VATRateEnum TaxRate { get; set; }
 
         /// <summary>
         /// Размер НДС за единицу предмета расчета, 1198

@@ -50,6 +50,14 @@ namespace OrangedataRequest.DataService
 
             return await _orangeService.SendRequestAsync<RespCreateCheck>($"{_apiUrl}/corrections", _cert, HttpMethod.Post, requestBody, signature).ConfigureAwait(false);
         }
+        
+        public async Task<ODResponse> CreateCorrectionsCheckAsync12(ReqCreateCorrectionCheck12 correctionCheck)
+        {
+            var requestBody = SerializationHelper.Serialize(correctionCheck);
+            var signature = ComputeSignature(requestBody);
+
+            return await _orangeService.SendRequestAsync<RespCreateCheck>($"{_apiUrl}/correction12", _cert, HttpMethod.Post, requestBody, signature).ConfigureAwait(false);
+        }
 
         public async Task<ODResponse> GetCheckStateAsync(string INN, string documentId)
         {
@@ -60,64 +68,41 @@ namespace OrangedataRequest.DataService
         {
             return await _orangeService.SendRequestAsync<RespCorrectionCheckStatus>($"{_apiUrl}/corrections/{INN}/status/{documentId}", _cert, HttpMethod.Get).ConfigureAwait(false);
         }
+        
+        public async Task<ODResponse> GetCorrectionCheckStateAsync12(string INN, string documentId)
+        {
+            return await _orangeService.SendRequestAsync<RespCorrectionCheckStatus12>($"{_apiUrl}/correction12/{INN}/status/{documentId}", _cert, HttpMethod.Get).ConfigureAwait(false);
+        }
+
+        public async Task<ODResponse> GetKKTDeviceStateAsync(string INN, string groupName)
+        {
+            return await _orangeService.SendRequestAsync<RespKKTDevicesStatus>($"{_apiUrl}/devices/status/{INN}/{groupName}", _cert, HttpMethod.Get).ConfigureAwait(false);
+        }
+
+        public async Task<ODResponse> GetAccessStateAsync(ReqAccessStatus request)
+        {
+            var requestBody = SerializationHelper.Serialize(request);
+            var signature = ComputeSignature(requestBody);
+            return await _orangeService.SendRequestAsync<RespAccessStatus>($"{_apiUrl}/check", _cert, HttpMethod.Post,requestBody,signature).ConfigureAwait(false);
+        }
+
+        public async Task<ODResponse> CreateItemCodeCheckAsync(ReqItemCodeCheck request)
+        {
+            var requestBody = SerializationHelper.Serialize(request);
+            Console.WriteLine($"CreateItemCodeCheckAsync request body: {requestBody}");
+            var signature = ComputeSignature(requestBody);
+
+            return await _orangeService.SendRequestAsync<ReqItemCodeCheck>($"{_apiUrl}/itemcode", _cert, HttpMethod.Post, requestBody, signature).ConfigureAwait(false);
+        }
+
+        public async Task<ODResponse> GetItemCodeStateAsync(string INN, string documentId)
+        {
+            return await _orangeService.SendRequestAsync<RespItemCodeStatus>($"{_apiUrl}/itemcode/{INN}/status/{documentId}", _cert, HttpMethod.Get).ConfigureAwait(false);
+        }
 
         #endregion Public methods
 
         #region Helpers
-
-        // private async Task<ODResponse> SendRequestAsync<T>(string uri, HttpMethod method, string requestBody = null, string signature = null)
-        // {
-        //     if (string.IsNullOrEmpty(uri))
-        //     {
-        //         throw new ArgumentNullException(nameof(uri));
-        //     }
-        //
-        //     using (var client = new HttpClient(new HttpClientHandler
-        //     {
-        //         ClientCertificates =
-        //         {
-        //             _cert,
-        //         },
-        //         ServerCertificateCustomValidationCallback = (a, b, c, d) => true
-        //     })) 
-        //     {
-        //         var request = new HttpRequestMessage(method, uri);
-        //         if (!string.IsNullOrWhiteSpace(signature))
-        //         {
-        //             request.Headers.Add("X-Signature", signature);
-        //         }
-        //         //httpRequest.KeepAlive = true;
-        //         //httpRequest.UserAgent = "OrangeDataClient";
-        //         //httpRequest.PreAuthenticate = true;
-        //         if (!string.IsNullOrEmpty(requestBody))
-        //         {
-        //             request.Content = new StringContent(requestBody, Encoding.UTF8, "application/json");
-        //         }
-        //
-        //         var response = await client.SendAsync(request);
-        //         return await ExtractResponseAsync<T>(response);
-        //     }
-        // }
-        //
-        // private async Task<ODResponse> ExtractResponseAsync<T>(HttpResponseMessage response)
-        // {
-        //     var res = new ODResponse();
-        //     using (response)
-        //     {
-        //         res.StatusCode = response.StatusCode;
-        //         var text = await response.Content.ReadAsStringAsync();
-        //         res.Response = text;
-        //         try
-        //         {
-        //             res.ResponseObject = SerializationHelper.Deserealize<T>(text);
-        //         }
-        //         catch(Exception ex)
-        //         {
-        //             res.ResponseObject = ex;
-        //         }
-        //     }
-        //     return res;
-        // }
 
         private string ComputeSignature(string document)
         {

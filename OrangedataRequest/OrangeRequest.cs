@@ -24,7 +24,7 @@ namespace OrangedataRequest
         /// <returns></returns>
         public async Task<ODResponse> CreateCheckAsync(ReqCreateCheck check)
         {
-            return await _dataService.SendCheckAsync(check);
+            return await _dataService.SendCheckAsync(check).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace OrangedataRequest
         /// <returns></returns>
         public async Task<ODResponse> GetCheckStateAsync(string INN, string documentId)
         {
-            return await _dataService.GetCheckStateAsync(INN, documentId);
+            return await _dataService.GetCheckStateAsync(INN, documentId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace OrangedataRequest
         /// <returns></returns>
         public async Task<ODResponse> CreateCorrectionCheckAsync(ReqCreateCorrectionCheck correctionCheck)
         {
-            return await _dataService.CreateCorrectionsCheckAsync(correctionCheck);
+            return await _dataService.CreateCorrectionsCheckAsync(correctionCheck).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace OrangedataRequest
         /// <returns></returns>
         public async Task<ODResponse> CreateCorrectionCheckAsync12(ReqCreateCorrectionCheck12 correctionCheck)
         {
-            return await _dataService.CreateCorrectionsCheckAsync12(correctionCheck);
+            return await _dataService.CreateCorrectionsCheckAsync12(correctionCheck).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace OrangedataRequest
         /// <returns></returns>
         public async Task<ODResponse> GetCorrectionCheckStateAsync(string INN, string documentId)
         {
-            return await _dataService.GetCorrectionCheckStateAsync(INN, documentId);
+            return await _dataService.GetCorrectionCheckStateAsync(INN, documentId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace OrangedataRequest
         /// <returns></returns>
         public async Task<ODResponse> GetCorrectionCheckStateAsync12(string INN, string documentId)
         {
-            return await _dataService.GetCorrectionCheckStateAsync12(INN, documentId);
+            return await _dataService.GetCorrectionCheckStateAsync12(INN, documentId).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace OrangedataRequest
         /// <returns></returns>
         public async Task<ODResponse> GetKKTDevicesStateAsync(string INN, string groupName)
         {
-            return await _dataService.GetKKTDeviceStateAsync(INN, groupName);
+            return await _dataService.GetKKTDeviceStateAsync(INN, groupName).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -99,7 +99,7 @@ namespace OrangedataRequest
         /// <returns></returns>
         public async Task<ODResponse> GetAccessStateAsync(ReqAccessStatus request)
         {
-            return await _dataService.GetAccessStateAsync(request);
+            return await _dataService.GetAccessStateAsync(request).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace OrangedataRequest
         /// <returns></returns>
         public async Task<ODResponse> CreateItemCodeCheckAsync12(ReqItemCodeCheck request)
         {
-            return await _dataService.CreateItemCodeCheckAsync(request);
+            return await _dataService.CreateItemCodeCheckAsync(request).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -120,7 +120,7 @@ namespace OrangedataRequest
         /// <returns></returns>
         public async Task<ODResponse> GetItemCodeStateAsync(string INN, string documentId)
         {
-            return await _dataService.GetItemCodeStateAsync(INN, documentId);
+            return await _dataService.GetItemCodeStateAsync(INN, documentId).ConfigureAwait(false);
         }
     }
 }

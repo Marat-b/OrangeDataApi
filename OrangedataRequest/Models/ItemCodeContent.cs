@@ -19,11 +19,13 @@ namespace OrangedataRequest.Models
         /// <summary>
         ///     Мера количества предмета расчета, 2108
         /// </summary>
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public byte QuantityMeasurementUnit { get; set; }
 
         /// <summary>
         ///     Количество предмета расчета, 1023
         /// </summary>
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
         public decimal Quantity { get; set; }
 
         /// <summary>
