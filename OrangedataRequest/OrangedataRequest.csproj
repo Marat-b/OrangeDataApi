@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ApplicationIcon />
     <RootNamespace>OrangedataRequest</RootNamespace>
     <AssemblyName>OrangedataRequest</AssemblyName>
@@ -12,7 +12,7 @@
     <Description>C# API для сервиса онлайн-касс Orange data</Description>
     <PackageIconUrl></PackageIconUrl>
     <Authors>OrangeData</Authors>
-    <LangVersion>13</LangVersion>
+    <LangVersion>14</LangVersion>
     <Version>2.0.0</Version>
   </PropertyGroup>
 
@@ -26,8 +26,6 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="Polly" Version="8.5.2" />
-    <PackageReference Include="Polly.Contrib.WaitAndRetry" Version="1.1.1" />
   </ItemGroup>
 
 </Project>

@@ -5,7 +5,6 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using OrangedataRequest.Helpers;
-// using Polly;
 
 namespace OrangedataRequest.DataService;
 
@@ -23,7 +22,6 @@ public class OrangeService
         {
             throw new ArgumentNullException(nameof(uri));
         }
-        // var httpPolicy = Policy.Handle<TimeoutException>().WaitAndRetryAsync(5, retryAttempt => TimeSpan.FromSeconds(5));
 
         // var client = new HttpClient(new HttpClientHandler
         // {

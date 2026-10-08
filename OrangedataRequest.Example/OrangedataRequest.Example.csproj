@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ApplicationIcon />
     <OutputType>Exe</OutputType>
     <RootNamespace>TestLauncher</RootNamespace>
     <AssemblyName>TestLauncher</AssemblyName>
-    <LangVersion>13</LangVersion>
+    <LangVersion>14</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
