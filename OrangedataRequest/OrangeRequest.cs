@@ -1,4 +1,5 @@
 ﻿using OrangedataRequest.DataService;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace OrangedataRequest
@@ -15,6 +16,18 @@ namespace OrangedataRequest
         public OrangeRequest(string keyPath, string certPath, string certPassword, string apiUrl= "https://apip.orangedata.ru:2443/api/v2")
         {
             _dataService = new ODDataService(keyPath, certPath, certPassword,apiUrl);
+        }
+
+        /// <summary>
+        /// С внешним обработчиком (resilience-цепочка вызова), надеваемым поверх внутреннего SocketsHttpHandler с клиентским сертификатом.
+        /// </summary>
+        /// <param name="keyPath">Путь к xml-файлу ключа для подписи клиентских сообщений</param>
+        /// <param name="certPath">Путь к клиентскому сертификату</param>
+        /// <param name="certPassword">Пароль клиентского сертификата</param>
+        /// <param name="outerHandler">Внешний DelegatingHandler (InnerHandler будет заменён)</param>
+        public OrangeRequest(string keyPath, string certPath, string certPassword, string apiUrl, DelegatingHandler outerHandler)
+        {
+            _dataService = new ODDataService(keyPath, certPath, certPassword, apiUrl, outerHandler);
         }
 
         /// <summary>

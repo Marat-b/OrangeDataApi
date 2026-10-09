@@ -24,6 +24,13 @@ namespace OrangedataRequest.DataService
             _api = RestService.For<IOrangeDataApi>(CreateHttpClient(apiUrl));
         }
 
+        public ODDataService(string keyText, string certPath, string certPassword, string apiUrl, DelegatingHandler outerHandler)
+        {
+            _keyText = keyText;
+            _cert = X509CertificateLoader.LoadPkcs12(File.ReadAllBytes(certPath), certPassword);
+            _api = RestService.For<IOrangeDataApi>(CreateHttpClient(apiUrl, outerHandler));
+        }
+
         private readonly string _keyText;
         private readonly X509Certificate2 _cert;
 
@@ -98,7 +105,7 @@ namespace OrangedataRequest.DataService
 
         #region Helpers
 
-        private HttpClient CreateHttpClient(string apiUrl)
+        private HttpClient CreateHttpClient(string apiUrl, DelegatingHandler outerHandler = null)
         {
             var handler = new SocketsHttpHandler
             {
@@ -111,6 +118,11 @@ namespace OrangedataRequest.DataService
             };
 
             // Путь запроса склеивается в режиме RefitLegacy: BaseAddress.TrimEnd('/') + "/documents"
+            if (outerHandler != null)
+            {
+                outerHandler.InnerHandler = handler;
+                return new HttpClient(outerHandler) { BaseAddress = new Uri(apiUrl) };
+            }
             return new HttpClient(handler) { BaseAddress = new Uri(apiUrl) };
         }
 
